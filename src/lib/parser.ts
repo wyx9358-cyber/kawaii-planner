@@ -50,17 +50,16 @@ export function parseNaturalLanguageSchedule(text: string, importWeekStart: Date
     sun: 6,
   };
 
-  const normalized = text
-    .replace(/，/g, ",")
-    .replace(/：/g, ":")
-    .replace(/；/g, ";")
-    .replace(/
-/g, ",")
-    .replace(/到/g, "-")
-    .replace(/–/g, "-")
-    .replace(/—/g, "-")
-    .replace(/半小时|半小時/g, "30分钟")
-    .replace(/branch/gi, "Branch");
+const normalized = text
+  .replace(/，/g, ",")
+  .replace(/：/g, ":")
+  .replace(/；/g, ";")
+  .replace(/\n/g, ",")
+  .replace(/到/g, "-")
+  .replace(/–/g, "-")
+  .replace(/—/g, "-")
+  .replace(/半小时|半小時/g, "30分钟")
+  .replace(/branch/gi, "Branch");
 
   const globalBreakMatch = normalized.match(/每天.*?(\d{1,3})\s*分钟|every day.*?break\s*(\d{1,3})\s*min/i);
   const fallbackBreak = Number(globalBreakMatch?.[1] || globalBreakMatch?.[2] || defaults.defaultBreakMinutes || 30);
