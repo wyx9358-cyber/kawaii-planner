@@ -34,6 +34,8 @@ export function exportShiftCsv(shifts: ComputedShift[], today: string) {
     (s.netPay || 0).toFixed(2),
     safeText(s.note || ""),
   ]);
-  const csv = [header, ...rows].map((row) => row.map((cell) => `"${safeText(cell)}"`).join(",")).join("\\n");  
+  const csv = [header, ...rows]
+    .map((row) => row.map((cell) => `"${safeText(cell)}"`).join(","))
+    .join("\n");
   downloadBlob(`kawaii-shifts-${today}.csv`, csv, "text/csv;charset=utf-8;");
 }
